@@ -1,0 +1,116 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.lsy.androidbaseframe"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+    }
+
+    buildTypes {
+        release {
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //Zipalign优化
+            zipAlignEnabled true
+            // 日志打印开关
+            buildConfigField('boolean', 'LOG_ENABLE', 'false')
+        }
+        debug {
+            // 日志打印开关
+            buildConfigField('boolean', 'LOG_ENABLE', 'true')
+            //Zipalign优化
+            zipAlignEnabled true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+}
+
+repositories{
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+
+dependencies {
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'com.google.android.material:material:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
+
+    implementation(name:'base-release', ext:'aar')
+    implementation(name:'widget-release', ext:'aar')
+
+    /**
+     * 权限
+     */
+    implementation 'com.github.getActivity:XXPermissions:10.8'
+    /**
+     * Toast
+     */
+    implementation 'com.github.getActivity:ToastUtils:9.0'
+    /**
+     * 日志打印框架：https://github.com/JakeWharton/timber
+     */
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+    /**
+     * Bugly 日志分析/全量更新
+     * implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+     */
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    /**
+     * 动画解析库：https://github.com/airbnb/lottie-android
+     * 动画资源：https://lottiefiles.com、https://icons8.com/animated-icons
+     */
+    implementation 'com.airbnb.android:lottie:3.6.1'
+    /**
+     * 标题栏框架：https://github.com/getActivity/TitleBar
+     */
+    implementation 'com.hjq:titlebar:8.2'
+    /**
+     * 沉浸式框架：https://github.com/gyf-dev/ImmersionBar
+     */
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    /**
+     * 网络请求框架：https://github.com/getActivity/EasyHttp
+     */
+    implementation 'com.github.getActivity:EasyHttp:9.6'
+    /**
+     * OkHttp 框架：https://github.com/square/okhttp
+     */
+    implementation 'com.squareup.okhttp3:okhttp:3.12.13'
+    /**
+     * Json 解析框架：https://github.com/google/gson
+     */
+    implementation 'com.google.code.gson:gson:2.8.6'
+    /**
+     * Gson 解析容错：https://github.com/getActivity/GsonFactory
+     */
+    implementation 'com.github.getActivity:GsonFactory:5.2'
+
+
+}
